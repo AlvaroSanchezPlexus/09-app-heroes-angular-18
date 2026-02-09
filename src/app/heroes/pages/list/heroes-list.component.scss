@@ -139,32 +139,17 @@
   border-top: 1px solid #e5e7eb;
 }
 
-.btn-detail,
 .btn-edit {
   flex: 1;
   padding: 0.625rem 1rem;
+  background: #10b981;
+  color: white;
   border: none;
   border-radius: 6px;
   font-size: 0.875rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.btn-detail {
-  background: white;
-  color: #667eea;
-  border: 2px solid #667eea;
-
-  &:hover {
-    background: #667eea;
-    color: white;
-  }
-}
-
-.btn-edit {
-  background: #10b981;
-  color: white;
 
   &:hover {
     background: #059669;
