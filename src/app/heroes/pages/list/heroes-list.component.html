@@ -31,6 +31,17 @@
             <p class="hero-publisher">{{ hero.publisher }}</p>
             <p class="hero-alter-ego">{{ hero.alter_ego }}</p>
           </div>
+          <div class="hero-actions">
+            <button
+              class="btn-detail"
+              [routerLink]="['/heroes/detail', hero.id]"
+            >
+              Ver Detalle
+            </button>
+            <button class="btn-edit" [routerLink]="['/heroes/edit', hero.id]">
+              Editar
+            </button>
+          </div>
         </div>
       }
     </div>
