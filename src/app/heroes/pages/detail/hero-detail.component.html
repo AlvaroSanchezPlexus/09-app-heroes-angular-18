@@ -6,10 +6,6 @@
         Volver
       </button>
       <h1>{{ $hero()!.superhero }}</h1>
-      <button class="btn-edit" [routerLink]="['/heroes/edit', $hero()!.id]">
-        <span class="icon">✎</span>
-        Editar
-      </button>
     </div>
 
     <div class="detail-content">
@@ -36,37 +32,25 @@
 
           <div class="info-grid">
             <div class="info-item">
-              <label>Nombre de Superhéroe</label>
+              <span>Nombre de Superhéroe</span>
               <p>{{ $hero()!.superhero }}</p>
             </div>
 
             <div class="info-item">
-              <label>Identidad Secreta</label>
+              <span>Identidad Secreta</span>
               <p>{{ $hero()!.alter_ego }}</p>
             </div>
 
             <div class="info-item">
-              <label>Primera Aparición</label>
+              <span>Primera Aparición</span>
               <p>{{ $hero()!.first_appearance }}</p>
             </div>
 
             <div class="info-item">
-              <label>Editorial</label>
+              <span>Editorial</span>
               <p>{{ $hero()!.publisher }}</p>
             </div>
           </div>
-        </div>
-
-        <div class="action-buttons">
-          <button
-            class="btn-primary"
-            [routerLink]="['/heroes/edit', $hero()!.id]"
-          >
-            Editar Héroe
-          </button>
-          <button class="btn-secondary" (click)="goBack()">
-            Volver a la Lista
-          </button>
         </div>
       </div>
     </div>
