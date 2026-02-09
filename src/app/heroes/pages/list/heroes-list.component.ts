@@ -1,5 +1,4 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { HeroesService } from '../../../core/services/heroes.service';
 import { Hero } from '../../../core/interfaces/hero.interface';
 
@@ -9,7 +8,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './heroes-list.component.html',
   styleUrl: './heroes-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
