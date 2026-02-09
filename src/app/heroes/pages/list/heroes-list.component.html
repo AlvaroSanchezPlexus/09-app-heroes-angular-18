@@ -19,7 +19,11 @@
             />
           </div>
           <div class="hero-content">
-            <h3 class="hero-name">{{ hero.superhero }}</h3>
+            <h3 class="hero-name">
+              <a [routerLink]="['/heroes/detail', hero.id]">
+                {{ hero.superhero }}
+              </a>
+            </h3>
             <p class="hero-publisher">{{ hero.publisher }}</p>
             <p class="hero-alter-ego">{{ hero.alter_ego }}</p>
           </div>

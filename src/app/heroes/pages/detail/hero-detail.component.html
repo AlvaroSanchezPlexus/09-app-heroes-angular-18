@@ -1,0 +1,79 @@
+@if ($hasHero()) {
+  <div class="detail-container">
+    <div class="detail-header">
+      <button class="btn-back" (click)="goBack()">
+        <span class="icon">←</span>
+        Volver
+      </button>
+      <h1>{{ $hero()!.superhero }}</h1>
+      <button class="btn-edit" [routerLink]="['/heroes/edit', $hero()!.id]">
+        <span class="icon">✎</span>
+        Editar
+      </button>
+    </div>
+
+    <div class="detail-content">
+      <div class="hero-image-section">
+        <img
+          [src]="'assets/heroes/' + $hero()!.img + '.jpg'"
+          [alt]="$hero()!.superhero"
+          class="hero-image"
+        />
+      </div>
+
+      <div class="hero-info-section">
+        <div class="info-card">
+          <div class="info-header">
+            <h2>Información del Héroe</h2>
+            <span
+              class="badge"
+              [class.dc]="$hero()!.publisher === 'DC Comics'"
+              [class.marvel]="$hero()!.publisher === 'Marvel Comics'"
+            >
+              {{ $hero()!.publisher }}
+            </span>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <label>Nombre de Superhéroe</label>
+              <p>{{ $hero()!.superhero }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Identidad Secreta</label>
+              <p>{{ $hero()!.alter_ego }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Primera Aparición</label>
+              <p>{{ $hero()!.first_appearance }}</p>
+            </div>
+
+            <div class="info-item">
+              <label>Editorial</label>
+              <p>{{ $hero()!.publisher }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button
+            class="btn-primary"
+            [routerLink]="['/heroes/edit', $hero()!.id]"
+          >
+            Editar Héroe
+          </button>
+          <button class="btn-secondary" (click)="goBack()">
+            Volver a la Lista
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando héroe...</p>
+  </div>
+}

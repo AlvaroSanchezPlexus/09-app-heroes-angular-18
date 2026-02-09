@@ -103,7 +103,16 @@
   margin: 0 0 0.5rem 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+
+  a {
+    color: #1a1a1a;
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #667eea;
+    }
+  }
 }
 
 .hero-publisher {
