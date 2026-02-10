@@ -23,4 +23,13 @@ export class HeroesService {
   public getHeroes(): Observable<Hero[]> {
     return this._http.get<Hero[]>(this._baseUrl);
   }
+
+  /**
+   * Obtiene un héroe específico por su ID
+   * @param id Identificador único del héroe
+   * @returns Observable con el héroe encontrado
+   */
+  public getHeroById(id: string): Observable<Hero> {
+    return this._http.get<Hero>(`${this._baseUrl}/${id}`);
+  }
 }

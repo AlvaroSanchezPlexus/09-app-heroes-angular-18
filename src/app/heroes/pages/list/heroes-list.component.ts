@@ -1,4 +1,5 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HeroesService } from '../../../core/services/heroes.service';
 import { Hero } from '../../../core/interfaces/hero.interface';
 
@@ -8,7 +9,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './heroes-list.component.html',
   styleUrl: './heroes-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
