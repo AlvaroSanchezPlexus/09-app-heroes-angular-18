@@ -1,5 +1,4 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { switchMap, of } from 'rxjs';
@@ -12,7 +11,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-hero-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
