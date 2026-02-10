@@ -38,4 +38,30 @@ export class HeroesListComponent implements OnInit {
       }
     });
   }
+
+  /**
+   * Elimina un héroe después de confirmación del usuario
+   * @param hero Héroe a eliminar
+   */
+  public deleteHero(hero: Hero): void {
+    const confirmDelete = confirm(
+      `¿Estás seguro de que deseas eliminar a ${hero.superhero}?`
+    );
+    
+    if (!confirmDelete) {
+      return;
+    }
+    
+    this._heroesService.deleteHero(hero.id).subscribe({
+      next: () => {
+        this.$heroes.update(heroes => 
+          heroes.filter(h => h.id !== hero.id)
+        );
+      },
+      error: (err) => {
+        console.error('Error al eliminar héroe:', err);
+        alert('No se pudo eliminar el héroe. Inténtalo de nuevo.');
+      }
+    });
+  }
 }

@@ -28,7 +28,10 @@
         </div>
         <div class="hero-actions">
           <button class="btn-edit" [routerLink]="['/heroes/edit', hero.id]">
-            Editar
+            ✏️ Editar
+          </button>
+          <button class="btn-delete" (click)="deleteHero(hero)">
+            🗑️ Eliminar
           </button>
         </div>
       </div>
