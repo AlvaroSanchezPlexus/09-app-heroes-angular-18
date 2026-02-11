@@ -13,6 +13,10 @@ export const routes: Routes = [
         loadComponent: () => import('./heroes/pages/detail/hero-detail.component').then(m => m.HeroDetailComponent)
       },
       {
+        path: 'new',
+        loadComponent: () => import('./heroes/pages/form/hero-form.component').then(m => m.HeroFormComponent)
+      },
+      {
         path: '',
         redirectTo: 'list',
         pathMatch: 'full'

@@ -32,4 +32,13 @@ export class HeroesService {
   public getHeroById(id: string): Observable<Hero> {
     return this._http.get<Hero>(`${this._baseUrl}/${id}`);
   }
+
+  /**
+   * Crea un nuevo héroe en el sistema
+   * @param hero Objeto héroe a crear
+   * @returns Observable con el héroe creado
+   */
+  public createHero(hero: Hero): Observable<Hero> {
+    return this._http.post<Hero>(this._baseUrl, hero);
+  }
 }
