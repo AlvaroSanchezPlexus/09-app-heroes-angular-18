@@ -1,10 +1,17 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
-import { catchError, throwError } from 'rxjs';
+import { inject } from '@angular/core';
+import { catchError, throwError, finalize } from 'rxjs';
+import { LoadingService } from '../services/loading.service';
 
 /**
- * Interceptor funcional para manejo global de errores HTTP
+ * Interceptor funcional para loading global y manejo de errores HTTP
  */
-export const errorInterceptor: HttpInterceptorFn = (req, next) => {
+export const loadingAndErrorInterceptor: HttpInterceptorFn = (req, next) => {
+  const loadingService = inject(LoadingService);
+  
+  // Iniciar loading antes de la request
+  loadingService.startLoading();
+  
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let errorMessage = 'Error desconocido';
@@ -20,6 +27,10 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
       }
       
       return throwError(() => new Error(errorMessage));
+    }),
+    finalize(() => {
+      // Detener loading al finalizar (éxito o error)
+      loadingService.stopLoading();
     })
   );
 };
