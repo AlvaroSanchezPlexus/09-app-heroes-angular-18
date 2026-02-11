@@ -30,7 +30,7 @@
     gap: 0.5rem;
     padding: 0.75rem 1.25rem;
     background: white;
-    color: #667eea;
+    color: #667eea 100%;
     border: 2px solid #667eea;
     border-radius: 8px;
     font-size: 1rem;
@@ -44,7 +44,7 @@
 
     &:hover {
         background: #667eea;
-        color: white;
+        color: white 100%;
         transform: translateX(-4px);
     }
 }
@@ -112,7 +112,7 @@
 
         &:disabled {
             background: #f3f4f6;
-            color: #6b7280;
+            color: #6b7280 100%;
             cursor: not-allowed;
         }
     }
@@ -173,7 +173,7 @@
 
 .btn-submit {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    color: white 100%;
     box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
 
     &:hover:not(:disabled) {
@@ -189,12 +189,6 @@
     border-top-color: white;
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 // Responsive
