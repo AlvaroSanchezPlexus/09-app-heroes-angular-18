@@ -1,6 +1,7 @@
-import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed, DestroyRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { switchMap, of } from 'rxjs';
 import { HeroesService } from '../../../core/services/heroes.service';
 import { Hero } from '../../../core/interfaces/hero.interface';
@@ -17,12 +18,12 @@ import { Hero } from '../../../core/interfaces/hero.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroFormComponent implements OnInit {
-  //TODO quitar $isSubmitting()
   // Servicios inyectados de forma privada e inmutable
   private readonly _fb = inject(FormBuilder);
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
   private readonly _heroesService = inject(HeroesService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   // Signal para almacenar el héroe actual (en modo edición)
   public $currentHero = signal<Hero | undefined>(undefined);
@@ -81,7 +82,8 @@ export class HeroFormComponent implements OnInit {
             return this._heroesService.getHeroById(id);
           }
           return of(undefined);
-        })
+        }),
+        takeUntilDestroyed(this._destroyRef)
       )
       .subscribe({
         next: (hero: Hero | undefined) => {
@@ -114,7 +116,9 @@ export class HeroFormComponent implements OnInit {
       ? this._heroesService.updateHero(heroData)
       : this._heroesService.createHero(heroData);
 
-    operation$.subscribe({
+    operation$.pipe(
+      takeUntilDestroyed(this._destroyRef)
+    ).subscribe({
       next: (hero: Hero) => {
         this.$isSubmitting.set(false);
         this._router.navigate(['/heroes/detail', hero.id]);

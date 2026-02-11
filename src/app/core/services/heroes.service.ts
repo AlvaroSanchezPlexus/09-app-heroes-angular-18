@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Hero } from '../interfaces/hero.interface';
+import { environment } from '../../../environments/environment';
 
 /**
  * Servicio centralizado para gestionar operaciones CRUD de héroes
@@ -13,8 +14,8 @@ export class HeroesService {
   // Servicio HTTP inyectado de forma privada e inmutable
   private readonly _http = inject(HttpClient);
   
-  // URL base del API
-  private readonly _baseUrl: string = 'http://localhost:3000/heroes';
+  // URL base del API desde configuración de entorno
+  private readonly _baseUrl = `${environment.apiUrl}/heroes`;
 
   /**
    * Obtiene la lista completa de héroes desde el API
