@@ -1,7 +1,7 @@
 <div class="heroes-container">
   <div class="header">
     <h1>Héroes</h1>
-    <button class="btn-new" routerLink="/heroes/new">
+    <button class="btn-primary" routerLink="/heroes/new">
       <span class="icon">+</span>
       Nuevo Héroe
     </button>
@@ -12,6 +12,7 @@
       <div class="hero-card">
         <div class="hero-image">
           <img
+            class="hero-image-img"
             [src]="'assets/heroes/' + hero.img + '.jpg'"
             [alt]="hero.superhero"
             loading="lazy"
@@ -28,7 +29,10 @@
         </div>
         <div class="hero-actions">
           <button class="btn-edit" [routerLink]="['/heroes/edit', hero.id]">
-            Editar
+            ✏️ Editar
+          </button>
+          <button class="btn-delete" (click)="deleteHero(hero)">
+            🗑️ Eliminar
           </button>
         </div>
       </div>
