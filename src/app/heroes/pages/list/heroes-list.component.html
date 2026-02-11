@@ -7,39 +7,89 @@
     </button>
   </div>
 
-  <div class="heroes-grid">
-    @for (hero of $heroes(); track hero.id) {
-      <div class="hero-card">
-        <div class="hero-image">
-          <img
-            class="hero-image-img"
-            [src]="'assets/heroes/' + hero.img + '.jpg'"
-            [alt]="hero.superhero"
-            loading="lazy"
-          />
-        </div>
-        <div class="hero-content">
-          <h3 class="hero-name">
-            <a [routerLink]="['/heroes/detail', hero.id]">
-              {{ hero.superhero }}
-            </a>
-          </h3>
-          <p class="hero-publisher">{{ hero.publisher }}</p>
-          <p class="hero-alter-ego">{{ hero.alter_ego }}</p>
-        </div>
-        <div class="hero-actions">
-          <button class="btn-edit" [routerLink]="['/heroes/edit', hero.id]">
-            ✏️ Editar
-          </button>
-          <button class="btn-delete" (click)="deleteHero(hero)">
-            🗑️ Eliminar
-          </button>
-        </div>
-      </div>
-    } @empty {
-      <div class="empty-state">
-        <p>No hay héroes disponibles</p>
-      </div>
+  <!-- Search Bar -->
+  <div class="search-container">
+    <input
+      type="text"
+      class="search-input"
+      placeholder="🔍 Buscar héroe por nombre, identidad o editorial..."
+      (input)="onSearchChange($event)"
+      [value]="$searchTerm()"
+    />
+    @if ($searchTerm()) {
+      <button class="btn-clear" (click)="clearSearch()">✕</button>
     }
   </div>
+
+  <!-- Loading State -->
+  @if ($isLoading()) {
+    <div class="loading-container">
+      @defer {
+        <div class="spinner"></div>
+        <p>Cargando héroes...</p>
+      } @placeholder {
+        <p>⏳ Preparando...</p>
+      }
+    </div>
+  }
+
+  <!-- Error State -->
+  @if ($error()) {
+    <div class="error-container">
+      <div class="error-icon">⚠️</div>
+      <h3>Algo salió mal</h3>
+      <p>{{ $error() }}</p>
+      <button class="btn-retry" (click)="retryLoad()">🔄 Reintentar</button>
+    </div>
+  }
+
+  <!-- Content -->
+  @if (!$isLoading() && !$error()) {
+    <div class="heroes-grid">
+      @for (hero of $filteredHeroes(); track hero.id) {
+        <div class="hero-card">
+          <div class="hero-image">
+            <img
+              [src]="'assets/heroes/' + hero.img + '.jpg'"
+              [alt]="hero.superhero"
+              loading="lazy"
+            />
+          </div>
+          <div class="hero-content">
+            <h3 class="hero-name">
+              <a [routerLink]="['/heroes/detail', hero.id]">
+                {{ hero.superhero }}
+              </a>
+            </h3>
+            <p class="hero-publisher">{{ hero.publisher }}</p>
+            <p class="hero-alter-ego">{{ hero.alter_ego }}</p>
+          </div>
+          <div class="hero-actions">
+            <button class="btn-edit" [routerLink]="['/heroes/edit', hero.id]">
+              ✏️ Editar
+            </button>
+            <button class="btn-delete" (click)="deleteHero(hero)">
+              🗑️ Eliminar
+            </button>
+          </div>
+        </div>
+      } @empty {
+        @if ($searchTerm()) {
+          <div class="empty-state">
+            <p>
+              No se encontraron héroes que coincidan con
+              <strong>"{{ $searchTerm() }}"</strong>
+            </p>
+            <button class="btn-clear-search" (click)="clearSearch()">
+              Limpiar búsqueda
+            </button>
+          </div>
+        } @else {
+          <div class="empty-state">
+            <p>No hay héroes disponibles</p>
+          </div>
+        }
+      }
+    </div>
+  }
 </div>
