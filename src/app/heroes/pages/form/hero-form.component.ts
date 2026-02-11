@@ -28,9 +28,6 @@ export class HeroFormComponent implements OnInit {
   // Signal para almacenar el héroe actual (en modo edición)
   public $currentHero = signal<Hero | undefined>(undefined);
 
-  // Signal para indicar si el formulario está siendo enviado
-  public $isSubmitting = signal<boolean>(false);
-
   // Computed signal para determinar si estamos en modo edición
   public $isEditMode = computed(() => this.$currentHero() !== undefined);
 
@@ -101,12 +98,13 @@ export class HeroFormComponent implements OnInit {
    * Envía el formulario para crear o actualizar un héroe
    */
   public onSubmit(): void {
-    if (this.heroForm.invalid || this.$isSubmitting()) {
+    if (this.heroForm.invalid || this.heroForm.disabled) {
       this.heroForm.markAllAsTouched();
       return;
     }
 
-    this.$isSubmitting.set(true);
+    // Deshabilitar formulario durante submit
+    this.heroForm.disable();
 
     const heroData: Hero = {
       ...this.heroForm.getRawValue()
@@ -120,11 +118,11 @@ export class HeroFormComponent implements OnInit {
       takeUntilDestroyed(this._destroyRef)
     ).subscribe({
       next: (hero: Hero) => {
-        this.$isSubmitting.set(false);
+        this.heroForm.enable();
         this._router.navigate(['/heroes/detail', hero.id]);
       },
       error: () => {
-        this.$isSubmitting.set(false);
+        this.heroForm.enable();
       }
     });
   }

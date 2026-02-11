@@ -152,16 +152,16 @@
           type="button"
           class="btn-cancel"
           (click)="onCancel()"
-          [disabled]="$isSubmitting()"
+          [disabled]="heroForm.disabled"
         >
           Cancelar
         </button>
         <button
           type="submit"
           class="btn-submit"
-          [disabled]="heroForm.invalid || $isSubmitting()"
+          [disabled]="heroForm.invalid || heroForm.disabled"
         >
-          @if ($isSubmitting()) {
+          @if (heroForm.disabled) {
             <span class="spinner-small"></span>
             Guardando...
           } @else {

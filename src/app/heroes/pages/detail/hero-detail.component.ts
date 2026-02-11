@@ -1,5 +1,5 @@
 import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { toSignal, toObservable } from '@angular/core/rxjs-interop';
 import { switchMap, of, map } from 'rxjs';
 import { HeroesService } from '../../../core/services/heroes.service';
@@ -10,7 +10,7 @@ import { HeroesService } from '../../../core/services/heroes.service';
 @Component({
   selector: 'app-hero-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
