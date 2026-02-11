@@ -25,15 +25,15 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.875rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white 100%;
+  background: #10b981;
+  color: white;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 
   .icon {
     font-size: 1.5rem;
@@ -41,8 +41,9 @@
   }
 
   &:hover {
+    background: #059669;
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.4);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
   }
 
   &:active {
@@ -217,19 +218,20 @@
   width: 100%;
   aspect-ratio: 5 / 8;
   overflow: hidden;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0.5rem;
 
-  .hero-image-img {
+  img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     transition: transform 0.3s ease;
   }
 
-  .hero-card:hover & .hero-image-img {
+  .hero-card:hover & img {
     transform: scale(1.05);
   }
 }
