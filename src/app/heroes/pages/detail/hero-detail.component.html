@@ -1,0 +1,63 @@
+@if ($hasHero()) {
+  <div class="detail-container">
+    <div class="detail-header">
+      <button class="btn-back" (click)="goBack()">
+        <span class="icon">←</span>
+        Volver
+      </button>
+      <h1>{{ $hero()!.superhero }}</h1>
+    </div>
+
+    <div class="detail-content">
+      <div class="hero-image-section">
+        <img
+          [src]="'assets/heroes/' + $hero()!.img + '.jpg'"
+          [alt]="$hero()!.superhero"
+          class="hero-image"
+        />
+      </div>
+
+      <div class="hero-info-section">
+        <div class="info-card">
+          <div class="info-header">
+            <h2>Información del Héroe</h2>
+            <span
+              class="badge"
+              [class.dc]="$hero()!.publisher === 'DC Comics'"
+              [class.marvel]="$hero()!.publisher === 'Marvel Comics'"
+            >
+              {{ $hero()!.publisher }}
+            </span>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-item">
+              <span>Nombre de Superhéroe</span>
+              <p>{{ $hero()!.superhero }}</p>
+            </div>
+
+            <div class="info-item">
+              <span>Identidad Secreta</span>
+              <p>{{ $hero()!.alter_ego }}</p>
+            </div>
+
+            <div class="info-item">
+              <span>Primera Aparición</span>
+              <p>{{ $hero()!.first_appearance }}</p>
+            </div>
+
+            <div class="info-item">
+              <span>Editorial</span>
+              <p>{{ $hero()!.publisher }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando héroe...</p>
+  </div>
+}

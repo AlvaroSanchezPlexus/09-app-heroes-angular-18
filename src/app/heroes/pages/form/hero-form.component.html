@@ -1,0 +1,174 @@
+<div class="form-container">
+  <div class="form-header">
+    <button class="btn-back" (click)="onCancel()">
+      <span class="icon">←</span>
+      Volver
+    </button>
+    <h1>{{ $formTitle() }}</h1>
+    <div class="spacer"></div>
+  </div>
+
+  <div class="form-card">
+    <form [formGroup]="heroForm" (ngSubmit)="onSubmit()">
+      <div class="form-grid">
+        <!-- ID Field -->
+        <div class="form-group" [class.full-width]="!$isEditMode()">
+          <label for="id">
+            ID del Héroe
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="id"
+            formControlName="id"
+            placeholder="batman, superman, etc."
+            [class.error]="hasError('id')"
+          />
+          @if (hasError("id")) {
+            <span class="error-message">{{ getErrorMessage("id") }}</span>
+          }
+          @if (!$isEditMode()) {
+            <span class="helper-text"
+              >Solo letras minúsculas, números y guiones</span
+            >
+          }
+        </div>
+
+        <!-- Superhero Name -->
+        <div class="form-group">
+          <label for="superhero">
+            Nombre de Superhéroe
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="superhero"
+            formControlName="superhero"
+            placeholder="Batman"
+            [class.error]="hasError('superhero')"
+          />
+          @if (hasError("superhero")) {
+            <span class="error-message">{{
+              getErrorMessage("superhero")
+            }}</span>
+          }
+        </div>
+
+        <!-- Publisher -->
+        <div class="form-group">
+          <label for="publisher">
+            Editorial
+            <span class="required">*</span>
+          </label>
+          <select
+            id="publisher"
+            formControlName="publisher"
+            [class.error]="hasError('publisher')"
+          >
+            <option value="">Seleccione una editorial</option>
+            <option value="DC Comics">DC Comics</option>
+            <option value="Marvel Comics">Marvel Comics</option>
+          </select>
+          @if (hasError("publisher")) {
+            <span class="error-message">{{
+              getErrorMessage("publisher")
+            }}</span>
+          }
+        </div>
+
+        <!-- Alter Ego -->
+        <div class="form-group">
+          <label for="alter_ego">
+            Identidad Secreta
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="alter_ego"
+            formControlName="alter_ego"
+            placeholder="Bruce Wayne"
+            [class.error]="hasError('alter_ego')"
+          />
+          @if (hasError("alter_ego")) {
+            <span class="error-message">{{
+              getErrorMessage("alter_ego")
+            }}</span>
+          }
+        </div>
+
+        <!-- First Appearance -->
+        <div class="form-group full-width">
+          <label for="first_appearance">
+            Primera Aparición
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="first_appearance"
+            formControlName="first_appearance"
+            placeholder="Detective Comics #27"
+            [class.error]="hasError('first_appearance')"
+          />
+          @if (hasError("first_appearance")) {
+            <span class="error-message">{{
+              getErrorMessage("first_appearance")
+            }}</span>
+          }
+        </div>
+
+        <!-- Image -->
+        <div class="form-group">
+          <label for="img">
+            Imagen
+            <span class="required">*</span>
+          </label>
+          <input
+            type="text"
+            id="img"
+            formControlName="img"
+            placeholder="dc-batman"
+            [class.error]="hasError('img')"
+          />
+          @if (hasError("img")) {
+            <span class="error-message">{{ getErrorMessage("img") }}</span>
+          }
+          <span class="helper-text">Nombre del archivo sin extensión</span>
+        </div>
+
+        <!-- Alt Image -->
+        <div class="form-group">
+          <label for="alt_img">Imagen Alternativa</label>
+          <input
+            type="text"
+            id="alt_img"
+            formControlName="alt_img"
+            placeholder="(Opcional)"
+          />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="onCancel()"
+          [disabled]="$isSubmitting()"
+        >
+          Cancelar
+        </button>
+        <button
+          type="submit"
+          class="btn-submit"
+          [disabled]="heroForm.invalid || $isSubmitting()"
+        >
+          @if ($isSubmitting()) {
+            <span class="spinner-small"></span>
+            Guardando...
+          } @else {
+            {{ $submitButtonText() }}
+          }
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
