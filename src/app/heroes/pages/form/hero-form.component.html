@@ -148,19 +148,10 @@
       </div>
 
       <div class="form-actions">
-        <button
-          type="button"
-          class="btn-cancel"
-          (click)="onCancel()"
-          [disabled]="heroForm.disabled"
-        >
+        <button type="button" class="btn-cancel" (click)="onCancel()">
           Cancelar
         </button>
-        <button
-          type="submit"
-          class="btn-submit"
-          [disabled]="heroForm.invalid || heroForm.disabled"
-        >
+        <button type="submit" class="btn-submit">
           @if (heroForm.disabled) {
             <span class="spinner-small"></span>
             Guardando...
