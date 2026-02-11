@@ -17,6 +17,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroFormComponent implements OnInit {
+  //TODO quitar $isSubmitting()
   // Servicios inyectados de forma privada e inmutable
   private readonly _fb = inject(FormBuilder);
   private readonly _route = inject(ActivatedRoute);

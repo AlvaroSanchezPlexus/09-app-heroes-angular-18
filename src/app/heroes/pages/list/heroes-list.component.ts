@@ -15,6 +15,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesListComponent implements OnInit {
+  // TODO hacer el filter con un pipe personalizado
   // Servicio de héroes inyectado de forma privada e inmutable
   private readonly _heroesService = inject(HeroesService);
 

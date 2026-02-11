@@ -16,6 +16,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroDetailComponent implements OnInit {
+  // TODO investigar como hacerlo leyendo el url param con un input signal y no con un subscribe al activated route paramMap
   // Servicios inyectados de forma privada e inmutable
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
@@ -23,9 +24,6 @@ export class HeroDetailComponent implements OnInit {
 
   // Signal que almacena el héroe actual
   public $hero = signal<Hero | undefined>(undefined);
-
-  // Computed signal para verificar si hay un héroe cargado
-  public $hasHero = computed(() => this.$hero() !== undefined);
 
   /**
    * Hook del ciclo de vida que se ejecuta al inicializar el componente
