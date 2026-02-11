@@ -17,6 +17,10 @@ export const routes: Routes = [
         loadComponent: () => import('./heroes/pages/form/hero-form.component').then(m => m.HeroFormComponent)
       },
       {
+        path: 'edit/:id',
+        loadComponent: () => import('./heroes/pages/form/hero-form.component').then(m => m.HeroFormComponent)
+      },
+      {
         path: '',
         redirectTo: 'list',
         pathMatch: 'full'
@@ -29,6 +33,3 @@ export const routes: Routes = [
     pathMatch: 'full'
   }
 ];
-
-
-

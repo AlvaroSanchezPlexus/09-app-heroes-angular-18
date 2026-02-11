@@ -1,6 +1,6 @@
 import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap, of } from 'rxjs';
 import { HeroesService } from '../../../core/services/heroes.service';
 import { Hero } from '../../../core/interfaces/hero.interface';
@@ -11,7 +11,7 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-hero-form',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule],
   templateUrl: './hero-form.component.html',
   styleUrl: './hero-form.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -149,7 +149,7 @@ export class HeroFormComponent implements OnInit {
   public getErrorMessage(fieldName: string): string {
     const field = this.heroForm.get(fieldName);
     
-    if (!field || !field.errors) {
+    if (!field?.errors) {
       return '';
     }
 

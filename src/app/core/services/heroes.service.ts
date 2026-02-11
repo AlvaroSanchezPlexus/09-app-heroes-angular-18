@@ -41,4 +41,22 @@ export class HeroesService {
   public createHero(hero: Hero): Observable<Hero> {
     return this._http.post<Hero>(this._baseUrl, hero);
   }
+
+  /**
+   * Actualiza un héroe existente
+   * @param hero Objeto héroe con los datos actualizados
+   * @returns Observable con el héroe actualizado
+   */
+  public updateHero(hero: Hero): Observable<Hero> {
+    return this._http.put<Hero>(`${this._baseUrl}/${hero.id}`, hero);
+  }
+
+  /**
+   * Elimina un héroe del sistema
+   * @param id Identificador único del héroe a eliminar
+   * @returns Observable vacío
+   */
+  public deleteHero(id: string): Observable<void> {
+    return this._http.delete<void>(`${this._baseUrl}/${id}`);
+  }
 }
