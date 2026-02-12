@@ -2,10 +2,10 @@
   <div class="detail-container">
     <div class="detail-header">
       <button class="btn-back" (click)="goBack()">
-        <span class="icon">←</span>
+        <span class="btn-back__icon">←</span>
         Volver
       </button>
-      <h1>{{ hero.superhero }}</h1>
+      <h1 class="detail-header__title">{{ hero.superhero }}</h1>
     </div>
 
     <div class="detail-content">
@@ -20,7 +20,7 @@
       <div class="hero-info-section">
         <div class="info-card">
           <div class="info-header">
-            <h2>Información del Héroe</h2>
+            <h2 class="info-header__title">Información del Héroe</h2>
             <span
               class="badge"
               [class.dc]="hero.publisher === 'DC Comics'"
@@ -32,23 +32,23 @@
 
           <div class="info-grid">
             <div class="info-item">
-              <span>Nombre de Superhéroe</span>
-              <p>{{ hero.superhero }}</p>
+              <span class="info-item__label">Nombre de Superhéroe</span>
+              <p class="info-item__value">{{ hero.superhero }}</p>
             </div>
 
             <div class="info-item">
-              <span>Identidad Secreta</span>
-              <p>{{ hero.alter_ego }}</p>
+              <span class="info-item__label">Identidad Secreta</span>
+              <p class="info-item__value">{{ hero.alter_ego }}</p>
             </div>
 
             <div class="info-item">
-              <span>Primera Aparición</span>
-              <p>{{ hero.first_appearance }}</p>
+              <span class="info-item__label">Primera Aparición</span>
+              <p class="info-item__value">{{ hero.first_appearance }}</p>
             </div>
 
             <div class="info-item">
-              <span>Editorial</span>
-              <p>{{ hero.publisher }}</p>
+              <span class="info-item__label">Editorial</span>
+              <p class="info-item__value">{{ hero.publisher }}</p>
             </div>
           </div>
         </div>
@@ -58,6 +58,6 @@
 } @else {
   <div class="loading-container">
     <div class="spinner"></div>
-    <p>Cargando héroe...</p>
+    <p class="loading-container__text">Cargando héroe...</p>
   </div>
 }

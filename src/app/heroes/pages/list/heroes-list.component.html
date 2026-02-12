@@ -1,8 +1,8 @@
 <div class="heroes-container">
   <div class="header">
-    <h1>Héroes</h1>
+    <h1 class="header__title">Héroes</h1>
     <button class="btn-new" routerLink="/heroes/new">
-      <span class="icon">+</span>
+      <span class="btn-new__icon">+</span>
       Nuevo Héroe
     </button>
   </div>
@@ -26,9 +26,9 @@
     <div class="loading-container">
       @defer {
         <div class="spinner"></div>
-        <p>Cargando héroes...</p>
+        <p class="loading-container__text">Cargando héroes...</p>
       } @placeholder {
-        <p>⏳ Preparando...</p>
+        <p class="loading-container__text">⏳ Preparando...</p>
       }
     </div>
   }
@@ -36,9 +36,9 @@
   <!-- Error State -->
   @if ($error()) {
     <div class="error-container">
-      <div class="error-icon">⚠️</div>
-      <h3>Algo salió mal</h3>
-      <p>{{ $error() }}</p>
+      <div class="error-container__icon">⚠️</div>
+      <h3 class="error-container__title">Algo salió mal</h3>
+      <p class="error-container__message">{{ $error() }}</p>
       <button class="btn-retry" (click)="retryLoad()">🔄 Reintentar</button>
     </div>
   }
@@ -50,6 +50,7 @@
         <div class="hero-card">
           <div class="hero-image">
             <img
+              class="hero-image__img"
               [src]="'assets/heroes/' + hero.img + '.jpg'"
               [alt]="hero.superhero"
               loading="lazy"
@@ -57,7 +58,10 @@
           </div>
           <div class="hero-content">
             <h3 class="hero-name">
-              <a [routerLink]="['/heroes/detail', hero.id]">
+              <a
+                class="hero-name__link"
+                [routerLink]="['/heroes/detail', hero.id]"
+              >
                 {{ hero.superhero }}
               </a>
             </h3>
@@ -78,7 +82,9 @@
           <div class="empty-state">
             <p>
               No se encontraron héroes que coincidan con
-              <strong>"{{ $searchTerm() }}"</strong>
+              <strong class="empty-state__highlight"
+                >"{{ $searchTerm() }}"</strong
+              >
             </p>
             <button class="btn-clear-search" (click)="clearSearch()">
               Limpiar búsqueda
