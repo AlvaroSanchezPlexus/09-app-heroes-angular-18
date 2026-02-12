@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { Hero } from '../interfaces/hero.interface';
 import { environment } from '../../../environments/environment';
+import { Router } from '@angular/router';
 
 /**
  * Servicio centralizado para gestionar operaciones CRUD de héroes
@@ -13,7 +14,9 @@ import { environment } from '../../../environments/environment';
 export class HeroesService {
   // Servicio HTTP inyectado de forma privada e inmutable
   private readonly _http = inject(HttpClient);
-  
+
+  private readonly _router = inject(Router);
+
   // URL base del API desde configuración de entorno
   private readonly _baseUrl = `${environment.apiUrl}/heroes`;
 
@@ -22,7 +25,9 @@ export class HeroesService {
    * @returns Observable con el array de héroes
    */
   public getHeroes(): Observable<Hero[]> {
-    return this._http.get<Hero[]>(this._baseUrl);
+    return this._http.get<Hero[]>(this._baseUrl).pipe(tap({
+      error: (err) => this._handleError(err)
+    }));
   }
 
   /**
@@ -31,7 +36,9 @@ export class HeroesService {
    * @returns Observable con el héroe encontrado
    */
   public getHeroById(id: string): Observable<Hero> {
-    return this._http.get<Hero>(`${this._baseUrl}/${id}`);
+    return this._http.get<Hero>(`${this._baseUrl}/${id}`).pipe(tap({
+      error: (err) => this._handleError(err)
+    }));
   }
 
   /**
@@ -40,7 +47,9 @@ export class HeroesService {
    * @returns Observable con el héroe creado
    */
   public createHero(hero: Hero): Observable<Hero> {
-    return this._http.post<Hero>(this._baseUrl, hero);
+    return this._http.post<Hero>(this._baseUrl, hero).pipe(tap({
+      error: (err) => this._handleError(err)
+    }));
   }
 
   /**
@@ -49,7 +58,9 @@ export class HeroesService {
    * @returns Observable con el héroe actualizado
    */
   public updateHero(hero: Hero): Observable<Hero> {
-    return this._http.put<Hero>(`${this._baseUrl}/${hero.id}`, hero);
+    return this._http.put<Hero>(`${this._baseUrl}/${hero.id}`, hero).pipe(tap({
+      error: (err) => this._handleError(err)
+    }));
   }
 
   /**
@@ -58,6 +69,13 @@ export class HeroesService {
    * @returns Observable vacío
    */
   public deleteHero(id: string): Observable<void> {
-    return this._http.delete<void>(`${this._baseUrl}/${id}`);
+    return this._http.delete<void>(`${this._baseUrl}/${id}`).pipe(tap({
+      error: (err) => this._handleError(err)
+    }));
+  }
+
+  private _handleError(error: Error): void {
+    console.error('Error en HeroesService:', error);
+    this._router.navigate(['/adios']);
   }
 }

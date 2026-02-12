@@ -36,20 +36,18 @@ export class HeroesListComponent implements OnInit {
   /**
    * Hook del ciclo de vida que se ejecuta al inicializar el componente
    */
-  public ngOnInit(): void {
-    this.loadHeroes();
+  ngOnInit(): void {
+    this._loadHeroes();
   }
 
   /**
    * Carga la lista de héroes desde el servicio
    */
-  private loadHeroes(): void {
+  private _loadHeroes(): void {
     this.$isLoading.set(true);
     this.$error.set(null);
     
-    this._heroesService.getHeroes().pipe(
-      takeUntilDestroyed(this._destroyRef)
-    ).subscribe({
+    this._heroesService.getHeroes().subscribe({
       next: (heroes: Hero[]) => {
         this.$heroes.set(heroes);
         this.$isLoading.set(false);
@@ -81,7 +79,7 @@ export class HeroesListComponent implements OnInit {
    * Reintenta cargar los héroes
    */
   public retryLoad(): void {
-    this.loadHeroes();
+    this._loadHeroes();
   }
 
   /**

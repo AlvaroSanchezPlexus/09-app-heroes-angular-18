@@ -17,12 +17,12 @@ export class HeroFilterPipe implements PipeTransform {
    * @returns Array filtrado
    */
   public transform(heroes: Hero[], searchTerm: string): Hero[] {
-    if (!searchTerm || !searchTerm.trim()) {
+    if (!searchTerm?.trim()) {
       return heroes;
     }
-    
+
     const term = searchTerm.toLowerCase().trim();
-    
+
     return heroes.filter(hero =>
       hero.superhero.toLowerCase().includes(term) ||
       hero.alter_ego.toLowerCase().includes(term) ||
