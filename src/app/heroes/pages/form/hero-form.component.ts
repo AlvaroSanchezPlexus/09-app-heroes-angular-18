@@ -121,8 +121,9 @@ export class HeroFormComponent implements OnInit {
         this.heroForm.enable();
         this._router.navigate(['/heroes/detail', hero.id]);
       },
-      error: () => {
+      error: (err) => {
         this.heroForm.enable();
+        alert(err.message || 'Error al guardar el héroe. Por favor, intenta de nuevo.');
       }
     });
   }
