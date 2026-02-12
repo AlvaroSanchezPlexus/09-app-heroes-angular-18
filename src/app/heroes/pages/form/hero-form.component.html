@@ -1,11 +1,11 @@
 <div class="form-container">
   <div class="form-header">
     <button class="btn-back" (click)="onCancel()">
-      <span class="icon">←</span>
+      <span class="btn-back__icon">←</span>
       Volver
     </button>
-    <h1>{{ $formTitle() }}</h1>
-    <div class="spacer"></div>
+    <h1 class="form-header__title">{{ $formTitle() }}</h1>
+    <div class="form-header__spacer"></div>
   </div>
 
   <div class="form-card">
@@ -13,11 +13,12 @@
       <div class="form-grid">
         <!-- ID Field -->
         <div class="form-group" [class.full-width]="!$isEditMode()">
-          <label for="id">
+          <label for="id" class="form-group__label">
             ID del Héroe
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <input
+            class="form-group__input"
             type="text"
             id="id"
             formControlName="id"
@@ -25,10 +26,12 @@
             [class.error]="hasError('id')"
           />
           @if (hasError("id")) {
-            <span class="error-message">{{ getErrorMessage("id") }}</span>
+            <span class="form-group__error-message">{{
+              getErrorMessage("id")
+            }}</span>
           }
           @if (!$isEditMode()) {
-            <span class="helper-text"
+            <span class="form-group__helper-text"
               >Solo letras minúsculas, números y guiones</span
             >
           }
@@ -36,11 +39,12 @@
 
         <!-- Superhero Name -->
         <div class="form-group">
-          <label for="superhero">
+          <label for="superhero" class="form-group__label">
             Nombre de Superhéroe
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <input
+            class="form-group__input"
             type="text"
             id="superhero"
             formControlName="superhero"
@@ -48,7 +52,7 @@
             [class.error]="hasError('superhero')"
           />
           @if (hasError("superhero")) {
-            <span class="error-message">{{
+            <span class="form-group__error-message">{{
               getErrorMessage("superhero")
             }}</span>
           }
@@ -56,11 +60,12 @@
 
         <!-- Publisher -->
         <div class="form-group">
-          <label for="publisher">
+          <label for="publisher" class="form-group__label">
             Editorial
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <select
+            class="form-group__select"
             id="publisher"
             formControlName="publisher"
             [class.error]="hasError('publisher')"
@@ -70,7 +75,7 @@
             <option value="Marvel Comics">Marvel Comics</option>
           </select>
           @if (hasError("publisher")) {
-            <span class="error-message">{{
+            <span class="form-group__error-message">{{
               getErrorMessage("publisher")
             }}</span>
           }
@@ -78,11 +83,12 @@
 
         <!-- Alter Ego -->
         <div class="form-group">
-          <label for="alter_ego">
+          <label for="alter_ego" class="form-group__label">
             Identidad Secreta
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <input
+            class="form-group__input"
             type="text"
             id="alter_ego"
             formControlName="alter_ego"
@@ -90,7 +96,7 @@
             [class.error]="hasError('alter_ego')"
           />
           @if (hasError("alter_ego")) {
-            <span class="error-message">{{
+            <span class="form-group__error-message">{{
               getErrorMessage("alter_ego")
             }}</span>
           }
@@ -98,11 +104,12 @@
 
         <!-- First Appearance -->
         <div class="form-group full-width">
-          <label for="first_appearance">
+          <label for="first_appearance" class="form-group__label">
             Primera Aparición
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <input
+            class="form-group__input"
             type="text"
             id="first_appearance"
             formControlName="first_appearance"
@@ -110,7 +117,7 @@
             [class.error]="hasError('first_appearance')"
           />
           @if (hasError("first_appearance")) {
-            <span class="error-message">{{
+            <span class="form-group__error-message">{{
               getErrorMessage("first_appearance")
             }}</span>
           }
@@ -118,11 +125,12 @@
 
         <!-- Image -->
         <div class="form-group">
-          <label for="img">
+          <label for="img" class="form-group__label">
             Imagen
-            <span class="required">*</span>
+            <span class="form-group__required">*</span>
           </label>
           <input
+            class="form-group__input"
             type="text"
             id="img"
             formControlName="img"
@@ -130,15 +138,22 @@
             [class.error]="hasError('img')"
           />
           @if (hasError("img")) {
-            <span class="error-message">{{ getErrorMessage("img") }}</span>
+            <span class="form-group__error-message">{{
+              getErrorMessage("img")
+            }}</span>
           }
-          <span class="helper-text">Nombre del archivo sin extensión</span>
+          <span class="form-group__helper-text"
+            >Nombre del archivo sin extensión</span
+          >
         </div>
 
         <!-- Alt Image -->
         <div class="form-group">
-          <label for="alt_img">Imagen Alternativa</label>
+          <label for="alt_img" class="form-group__label"
+            >Imagen Alternativa</label
+          >
           <input
+            class="form-group__input"
             type="text"
             id="alt_img"
             formControlName="alt_img"
@@ -148,20 +163,11 @@
       </div>
 
       <div class="form-actions">
-        <button
-          type="button"
-          class="btn-cancel"
-          (click)="onCancel()"
-          [disabled]="$isSubmitting()"
-        >
+        <button type="button" class="btn-cancel" (click)="onCancel()">
           Cancelar
         </button>
-        <button
-          type="submit"
-          class="btn-submit"
-          [disabled]="heroForm.invalid || $isSubmitting()"
-        >
-          @if ($isSubmitting()) {
+        <button type="submit" class="btn-submit">
+          @if (heroForm.disabled) {
             <span class="spinner-small"></span>
             Guardando...
           } @else {

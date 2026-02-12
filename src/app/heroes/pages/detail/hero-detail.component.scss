@@ -10,15 +10,15 @@
     align-items: center;
     margin-bottom: 2rem;
     gap: 1rem;
+}
 
-    h1 {
-        flex: 1;
-        text-align: center;
-        font-size: 2.5rem;
-        color: #1a1a1a;
-        margin: 0;
-        font-weight: 700;
-    }
+.detail-header__title {
+    flex: 1;
+    text-align: center;
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    margin: 0;
+    font-weight: 700;
 }
 
 .btn-back {
@@ -35,15 +35,15 @@
     cursor: pointer;
     transition: all 0.3s ease;
 
-    .icon {
-        font-size: 1.25rem;
-    }
-
     &:hover {
         background: #667eea;
         color: white;
         transform: translateX(-4px);
     }
+}
+
+.btn-back__icon {
+    font-size: 1.25rem;
 }
 
 .detail-content {
@@ -90,13 +90,13 @@
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
     border-bottom: 2px solid #f3f4f6;
+}
 
-    h2 {
-        margin: 0;
-        font-size: 1.75rem;
-        color: #1a1a1a;
-        font-weight: 700;
-    }
+.info-header__title {
+    margin: 0;
+    font-size: 1.75rem;
+    color: #1a1a1a;
+    font-weight: 700;
 }
 
 .badge {
@@ -123,23 +123,21 @@
     gap: 1.5rem;
 }
 
-.info-item {
-    span {
-        display: block;
-        font-size: 0.875rem;
-        font-weight: 600;
-        color: #6b7280;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.5rem;
-    }
+.info-item__label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
 
-    p {
-        margin: 0;
-        font-size: 1.125rem;
-        color: #1a1a1a;
-        font-weight: 500;
-    }
+.info-item__value {
+    margin: 0;
+    font-size: 1.125rem;
+    color: #1a1a1a;
+    font-weight: 500;
 }
 
 .loading-container {
@@ -149,11 +147,11 @@
     justify-content: center;
     min-height: 400px;
     gap: 1rem;
+}
 
-    p {
-        font-size: 1.125rem;
-        color: #6b7280;
-    }
+.loading-container__text {
+    font-size: 1.125rem;
+    color: #6b7280;
 }
 
 .spinner {
@@ -179,14 +177,14 @@
 
     .detail-header {
         flex-wrap: wrap;
+    }
 
-        h1 {
-            order: -1;
-            width: 100%;
-            text-align: left;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
+    .detail-header__title {
+        order: -1;
+        width: 100%;
+        text-align: left;
+        font-size: 2rem;
+        margin-bottom: 1rem;
     }
 
     .detail-content {

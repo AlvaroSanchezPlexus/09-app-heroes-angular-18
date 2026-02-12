@@ -9,19 +9,19 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+}
 
-  h1 {
-    flex: 1;
-    text-align: center;
-    font-size: 2.5rem;
-    color: #1a1a1a;
-    margin: 0;
-    font-weight: 700;
-  }
+.form-header__title {
+  flex: 1;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin: 0;
+  font-weight: 700;
+}
 
-  .spacer {
-    width: 120px;
-  }
+.form-header__spacer {
+  width: 120px;
 }
 
 .btn-back {
@@ -38,15 +38,15 @@
   cursor: pointer;
   transition: all 0.3s ease;
 
-  .icon {
-    font-size: 1.25rem;
-  }
-
   &:hover {
     background: #667eea;
     color: white 100%;
     transform: translateX(-4px);
   }
+}
+
+.btn-back__icon {
+  font-size: 1.25rem;
 }
 
 .form-card {
@@ -71,67 +71,67 @@
   &.full-width {
     grid-column: 1 / -1;
   }
+}
 
-  label {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+.form-group__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
 
-    .required {
-      color: #ef4444;
-      font-size: 1rem;
-    }
+.form-group__required {
+  color: #ef4444;
+  font-size: 1rem;
+}
+
+.form-group__input,
+.form-group__select {
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #1a1a1a;
+  transition: all 0.2s ease;
+  background: white;
+
+  &:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
   }
 
-  input,
-  select {
-    padding: 0.75rem 1rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 8px;
-    font-size: 1rem;
-    color: #1a1a1a;
-    transition: all 0.2s ease;
-    background: white;
+  &.error {
+    border-color: #ef4444;
 
     &:focus {
-      outline: none;
-      border-color: #667eea;
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    }
-
-    &.error {
-      border-color: #ef4444;
-
-      &:focus {
-        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
-      }
-    }
-
-    &:disabled {
-      background: #f3f4f6;
-      color: #6b7280 100%;
-      cursor: not-allowed;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
     }
   }
 
-  select {
-    cursor: pointer;
+  &:disabled {
+    background: #f3f4f6;
+    color: #6b7280 100%;
+    cursor: not-allowed;
   }
+}
 
-  .error-message {
-    font-size: 0.875rem;
-    color: #ef4444;
-    font-weight: 500;
-  }
+.form-group__select {
+  cursor: pointer;
+}
 
-  .helper-text {
-    font-size: 0.875rem;
-    color: #6b7280;
-    font-style: italic;
-  }
+.form-group__error-message {
+  font-size: 0.875rem;
+  color: #ef4444;
+  font-weight: 500;
+}
+
+.form-group__helper-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-style: italic;
 }
 
 .form-actions {
@@ -201,16 +201,16 @@
     flex-direction: column;
     gap: 1rem;
     align-items: flex-start;
+  }
 
-    h1 {
-      width: 100%;
-      text-align: left;
-      font-size: 2rem;
-    }
+  .form-header__title {
+    width: 100%;
+    text-align: left;
+    font-size: 2rem;
+  }
 
-    .spacer {
-      display: none;
-    }
+  .form-header__spacer {
+    display: none;
   }
 
   .form-card {
@@ -220,17 +220,17 @@
   .form-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
+  }
 
-    .form-group {
-      grid-column: 1;
-    }
+  .form-grid .form-group {
+    grid-column: 1;
   }
 
   .form-actions {
     flex-direction: column-reverse;
+  }
 
-    button {
-      width: 100%;
-    }
+  .form-actions button {
+    width: 100%;
   }
 }

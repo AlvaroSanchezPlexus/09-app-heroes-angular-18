@@ -1,8 +1,8 @@
-import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs/operators';
+import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { toSignal, toObservable } from '@angular/core/rxjs-interop';
+import { switchMap, of, map } from 'rxjs';
 import { HeroesService } from '../../../core/services/heroes.service';
-import { Hero } from '../../../core/interfaces/hero.interface';
 
 /**
  * Componente para mostrar el detalle completo de un héroe
@@ -10,45 +10,50 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-hero-detail',
   standalone: true,
-  imports: [RouterLink],
+  imports: [],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeroDetailComponent implements OnInit {
-  // TODO investigar como hacerlo leyendo el url param con un input signal y no con un subscribe al activated route paramMap
+export class HeroDetailComponent {
   // Servicios inyectados de forma privada e inmutable
   private readonly _route = inject(ActivatedRoute);
   private readonly _router = inject(Router);
   private readonly _heroesService = inject(HeroesService);
 
-  // Signal que almacena el héroe actual
-  public $hero = signal<Hero | undefined>(undefined);
+  // Signal desde route params usando toSignal (Angular 18 best practice)
+  private readonly $heroId = toSignal(
+    this._route.paramMap.pipe(map(params => params.get('id') || ''))
+  );
 
-  /**
-   * Hook del ciclo de vida que se ejecuta al inicializar el componente
-   */
-  public ngOnInit(): void {
-    this.loadHero();
-  }
+  // Signal para estado de carga
+  public $isLoading = signal<boolean>(true);
+  
+  // Signal para mensajes de error
+  public $error = signal<string | null>(null);
 
-  /**
-   * Carga el héroe desde el servicio usando el ID de la ruta
-   */
-  private loadHero(): void {
-    this._route.paramMap
-      .pipe(
-        switchMap(params => {
-          const id = params.get('id');
-          return this._heroesService.getHeroById(id || '');
-        })
-      )
-      .subscribe({
-        next: (hero: Hero) => {
-          this.$hero.set(hero);
+  // Signal que carga el héroe reactivamente basado en el ID
+  public $hero = toSignal(
+    toObservable(this.$heroId).pipe(
+      switchMap(id => {
+        if (!id) {
+          this.$error.set('ID no proporcionado');
+          this.$isLoading.set(false);
+          return of(undefined);
         }
-      });
-  }
+        
+        this.$isLoading.set(true);
+        this.$error.set(null);
+        
+        return this._heroesService.getHeroById(id).pipe(
+          map(hero => {
+            this.$isLoading.set(false);
+            return hero;
+          })
+        );
+      })
+    )
+  );
 
   /**
    * Navega de vuelta a la lista de héroes

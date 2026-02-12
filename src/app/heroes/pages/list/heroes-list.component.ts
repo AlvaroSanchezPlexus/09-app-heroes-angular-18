@@ -1,7 +1,9 @@
-import { Component, signal, inject, OnInit, ChangeDetectionStrategy, computed } from '@angular/core';
+import { Component, signal, inject, OnInit, ChangeDetectionStrategy, DestroyRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HeroesService } from '../../../core/services/heroes.service';
 import { Hero } from '../../../core/interfaces/hero.interface';
+import { HeroFilterPipe } from '../../../shared/pipes/hero-filter.pipe';
 
 /**
  * Componente para mostrar la lista completa de héroes
@@ -9,15 +11,15 @@ import { Hero } from '../../../core/interfaces/hero.interface';
 @Component({
   selector: 'app-heroes-list',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, HeroFilterPipe],
   templateUrl: './heroes-list.component.html',
   styleUrl: './heroes-list.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroesListComponent implements OnInit {
-  // TODO hacer el filter con un pipe personalizado
-  // Servicio de héroes inyectado de forma privada e inmutable
+  // Servicios inyectados de forma privada e inmutable
   private readonly _heroesService = inject(HeroesService);
+  private readonly _destroyRef = inject(DestroyRef);
 
   // Signal que almacena la lista de héroes
   public $heroes = signal<Hero[]>([]);
@@ -30,34 +32,18 @@ export class HeroesListComponent implements OnInit {
   
   // Signal para mensajes de error
   public $error = signal<string | null>(null);
-  
-  // Computed signal que filtra héroes basado en búsqueda
-  public $filteredHeroes = computed(() => {
-    const term = this.$searchTerm().toLowerCase().trim();
-    const heroes = this.$heroes();
-    
-    if (!term) {
-      return heroes;
-    }
-    
-    return heroes.filter(hero =>
-      hero.superhero.toLowerCase().includes(term) ||
-      hero.alter_ego.toLowerCase().includes(term) ||
-      hero.publisher.toLowerCase().includes(term)
-    );
-  });
 
   /**
    * Hook del ciclo de vida que se ejecuta al inicializar el componente
    */
-  public ngOnInit(): void {
-    this.loadHeroes();
+  ngOnInit(): void {
+    this._loadHeroes();
   }
 
   /**
    * Carga la lista de héroes desde el servicio
    */
-  private loadHeroes(): void {
+  private _loadHeroes(): void {
     this.$isLoading.set(true);
     this.$error.set(null);
     
@@ -67,12 +53,7 @@ export class HeroesListComponent implements OnInit {
         this.$isLoading.set(false);
       },
       error: (err) => {
-        console.error('Error cargando héroes:', err);
-        this.$error.set(
-          err.status === 0 
-            ? 'No se pudo conectar al servidor. Verifica que el backend esté corriendo.'
-            : 'Error al cargar los héroes. Por favor, intenta de nuevo.'
-        );
+        this.$error.set(err.message || 'Error al cargar los héroes');
         this.$isLoading.set(false);
       }
     });
@@ -98,7 +79,7 @@ export class HeroesListComponent implements OnInit {
    * Reintenta cargar los héroes
    */
   public retryLoad(): void {
-    this.loadHeroes();
+    this._loadHeroes();
   }
 
   /**
@@ -114,15 +95,16 @@ export class HeroesListComponent implements OnInit {
       return;
     }
     
-    this._heroesService.deleteHero(hero.id).subscribe({
+    this._heroesService.deleteHero(hero.id).pipe(
+      takeUntilDestroyed(this._destroyRef)
+    ).subscribe({
       next: () => {
         this.$heroes.update(heroes => 
           heroes.filter(h => h.id !== hero.id)
         );
       },
       error: (err) => {
-        console.error('Error al eliminar héroe:', err);
-        alert('No se pudo eliminar el héroe. Inténtalo de nuevo.');
+        this.$error.set(err.message || 'No se pudo eliminar el héroe');
       }
     });
   }
