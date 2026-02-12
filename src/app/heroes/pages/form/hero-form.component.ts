@@ -114,17 +114,11 @@ export class HeroFormComponent implements OnInit {
       ? this._heroesService.updateHero(heroData)
       : this._heroesService.createHero(heroData);
 
-    operation$.pipe(
-      takeUntilDestroyed(this._destroyRef)
-    ).subscribe({
+    operation$.subscribe({
       next: (hero: Hero) => {
         this.heroForm.enable();
         this._router.navigate(['/heroes/detail', hero.id]);
       },
-      error: (err) => {
-        this.heroForm.enable();
-        alert(err.message || 'Error al guardar el héroe. Por favor, intenta de nuevo.');
-      }
     });
   }
 
