@@ -5,10 +5,15 @@ import { loadingAndErrorInterceptor } from './core/interceptors/loading-and-erro
 
 import { routes } from './app.routes';
 
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { MessageService } from 'primeng/api';
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(withInterceptors([loadingAndErrorInterceptor]))
+    provideHttpClient(withInterceptors([loadingAndErrorInterceptor])),
+    provideAnimations(),
+    MessageService
   ]
 };

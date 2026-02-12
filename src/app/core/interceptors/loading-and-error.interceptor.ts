@@ -2,12 +2,14 @@ import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { catchError, throwError, finalize } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
+import { ToastService } from '../services/toast.service';
 
 /**
  * Interceptor funcional para loading global y manejo de errores HTTP
  */
 export const loadingAndErrorInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);
+  const toastService = inject(ToastService);
   
   // Iniciar loading antes de la request
   loadingService.startLoading();
@@ -25,6 +27,9 @@ export const loadingAndErrorInterceptor: HttpInterceptorFn = (req, next) => {
       } else {
         errorMessage = error.error?.message || error.message;
       }
+
+      // Mostrar notificación de error
+      toastService.showError(errorMessage);
       
       return throwError(() => new Error(errorMessage));
     }),
